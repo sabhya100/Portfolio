@@ -289,18 +289,64 @@ button{ font-family:inherit; cursor:pointer; }
 .mobile-toggle{ display:none; }
 .scrim{ display:none; }
 
+
 @media (max-width:880px){
-  .menubar .m-item:not(.mob-visible){ display:none; }
-  .menubar-right{ display:none; }
-  .mobile-toggle{ display:flex; align-items:center; justify-content:center; width:30px; height:28px; }
-  .sidebar{ position:fixed; top:88px; bottom:22px; left:48px; z-index:150; margin-left:-260px; box-shadow:20px 0 40px rgba(0,0,0,0.5); }
-  .sidebar.open{ margin-left:0; }
-  .scrim{ display:none; position:fixed; inset:88px 0 22px 0; background:rgba(0,0,0,0.4); z-index:140; }
-  .scrim.open{ display:block; }
-  .rich-pane{ padding:24px 20px; }
-  .minimap{ display:none; }
-  .panel.open{ height:180px; }
+  body{overflow:hidden;}
+  .titlebar{height:26px;}
+  .menubar{height:38px;padding:0 8px;}
+  .mobile-toggle{display:flex;align-items:center;justify-content:center;width:38px;height:38px;}
+  .menubar .m-item:not(.mob-visible){display:none;}
+  .menubar-right{display:none;}
+
+  .activitybar{display:none;}
+
+  .sidebar{
+    position:fixed;
+    top:64px;
+    left:0;
+    bottom:22px;
+    width:280px;
+    margin-left:-280px;
+    z-index:1000;
+    transition:margin-left .25s ease;
+    box-shadow:8px 0 30px rgba(0,0,0,.45);
+  }
+  .sidebar.open{margin-left:0;}
+
+  .scrim{
+    display:none;
+    position:fixed;
+    inset:64px 0 22px 0;
+    background:rgba(0,0,0,.45);
+    z-index:999;
+  }
+  .scrim.open{display:block;}
+
+  .editor-group{width:100%;}
+  .tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .tab{min-width:150px;}
+  .breadcrumbs{
+    overflow-x:auto;
+    white-space:nowrap;
+    scrollbar-width:none;
+  }
+  .breadcrumbs::-webkit-scrollbar{display:none;}
+  .pane-scroll{overflow:auto;-webkit-overflow-scrolling:touch;}
+  .gutter{min-width:42px;font-size:12px;}
+  .code{font-size:12px;padding:12px;}
+  .minimap{display:none!important;}
+  .rich-pane{padding:20px 16px;}
+  .panel.open{height:170px;}
 }
+
+@media (max-width:600px){
+  .titlebar .title{font-size:11px;}
+  .statusbar{font-size:11px;}
+  .tab{min-width:120px;font-size:12px;}
+  .gutter{padding-right:8px;}
+  .code{font-size:11.5px;line-height:18px;}
+}
+
 </style>
 </head>
 <body>
