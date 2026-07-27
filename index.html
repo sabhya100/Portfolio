@@ -335,34 +335,26 @@ box-shadow:0 10px 30px rgba(0,0,0,.35);
 </style>
 
 
-<style id="mobile-ui-fix">
+<style id="terminal-mobile-patch">
 @media (max-width:768px){
-.titlebar{height:32px;padding:0 8px}
-.titlebar .title{
-font-size:11px;
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
-line-height:1;
-}
-.menubar{height:34px}
-.sidebar{
-margin-left:-280px!important;
-left:0!important;
-top:66px!important;
-width:260px!important;
-}
-.sidebar.open{margin-left:0!important;}
-.editor-group{width:100%!important;}
-.breadcrumbs{display:none!important;}
-.tabs{overflow-x:auto}
-.tab{min-width:140px}
-.panel{height:0!important;}
-.panel.open{height:0!important;overflow:hidden!important;}
-.minimap{display:none!important;}
-.rich-pane{padding:16px!important;}
-.code{font-size:12px!important;line-height:18px!important;padding:10px!important;}
-.gutter{min-width:38px!important;font-size:11px!important;}
+  .panel{
+    position:fixed !important;
+    left:0;
+    right:0;
+    bottom:22px;
+    height:0;
+    z-index:5000;
+    transition:height .25s ease;
+    border-top:1px solid #444;
+  }
+  .panel.open{
+    height:40vh !important;
+    min-height:220px;
+    max-height:340px;
+  }
+  .editor-group{
+    padding-bottom:40vh;
+  }
 }
 </style>
 
@@ -1032,14 +1024,17 @@ window.addEventListener("load",()=>{
 </script>
 
 
-<script id="mobile-ui-fix-script">
-window.addEventListener('load',()=>{
- const sb=document.querySelector('.sidebar');
- if(sb) sb.classList.remove('open');
- const sc=document.querySelector('.scrim');
- if(sc) sc.classList.remove('open');
- const panel=document.querySelector('.panel');
- if(panel) panel.classList.remove('open');
+<script id="terminal-mobile-patch-script">
+window.addEventListener("load",()=>{
+  const panel=document.querySelector(".panel");
+  if(!panel) return;
+  const observer=new MutationObserver(()=>{
+    if(window.innerWidth<=768){
+      document.querySelector(".editor-group").style.paddingBottom=
+        panel.classList.contains("open")?"40vh":"0";
+    }
+  });
+  observer.observe(panel,{attributes:true,attributeFilter:["class"]});
 });
 </script>
 
